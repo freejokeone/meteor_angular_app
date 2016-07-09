@@ -1,0 +1,24 @@
+<header>
+	<h1>angular app ({{$ctrl.incomplateCount}})</h1>
+	<label class="hide-completed">
+		<input type="checkbox" ng-model="$ctrl.hideComplated" name="">
+		Hide Complated Tasks
+	</label>
+	<login-buttons></login-buttons>
+
+	<form class="new-task" ng-submit='$ctrl.addTask($ctrl.newTask)' ng-show='$ctrl.currentUser'>
+		<input type="text" name="text" ng-model='$ctrl.newTask' placeholder="Type to add you task">
+	</form>
+</header>
+<ul>
+	<li ng-repeat='task in $ctrl.tasks' ng-class="{'checked':task.checked,'private':task.private}">
+		<button class="delete" ng-click="$ctrl.removeTask(task)">&times;</button>
+		<input type="checkbox" ng-checked='task.checked' ng-click='$ctrl.setChecked(task)' class="toggle-checked" name="">
+		<span class="text">
+			<strong>{{task.username}}-{{task.text}}</strong>
+		</span>
+		<button class="toggle-private" ng-click="$ctrl.setPrivate(task)" ng-show="task.owner===$ctrl.currentUser._id">
+			{{task.private==true?"Private":"Public"}}
+		</button>
+	</li>
+</ul>
